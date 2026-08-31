@@ -28,7 +28,7 @@ with no manual confirmation step anywhere in the path.** That is what makes it a
 exchange rather than a message board with a ledger attached, and it is also what makes
 the concurrency and margin problems real.
 
-## The three things worth reading the code for
+## Core systems
 
 ### 1. Matching engine
 
@@ -53,6 +53,34 @@ rejection path. The second exists because the first one is stale by the time it 
 between submission and execution, the same user's other orders may have filled and
 consumed the balance the first check approved against. Only the check that runs inside
 the transaction, against locked rows, is binding.
+
+Computing the worst case is also less obvious than it looks. A single binary position
+loses at most its size, so the naive answer is to sum the per-position maxima. That is
+wrong once a user holds several positions on the same contract at different strikes: the
+true worst case is the minimum of *aggregate* P&L, and it can sit at a strike itself — the
+push case — or between two strikes, not at either extreme. So the calculation sweeps test
+points across the whole strike ladder:
+
+```ts
+const testPoints: number[] = [];
+testPoints.push(strikes[0] - 1);                                  // below the lowest
+for (let i = 0; i < strikes.length; i++) {
+  testPoints.push(strikes[i]);                                    // the push case
+  if (i < strikes.length - 1) {
+    testPoints.push(Math.floor((strikes[i] + strikes[i + 1]) / 2)); // between strikes
+  }
+}
+testPoints.push(strikes[strikes.length - 1] + 1);                 // above the highest
+
+let worst = Infinity;
+for (const tp of testPoints) {
+  const pnl = positions.reduce((sum, pos) => sum + pnlForUser(pos, tp), 0);
+  worst = Math.min(worst, pnl);
+}
+```
+
+Getting this wrong under-reserves margin on exactly the portfolios most likely to blow
+up — the ones with several offsetting positions on one contract.
 
 ### 3. Atomic settlement
 
@@ -82,7 +110,7 @@ database holds settled trade history that cannot be reconstructed.
 
 ---
 
-## Deployment status, stated plainly
+## Deployment status
 
 The original hosted deployment has been retired and its domain released. I no longer have
 access to that hosting account, so I cannot guarantee the service stays up, and a link

@@ -1,4 +1,4 @@
-# WC2026 Monte Carlo — an outright pricing model, locked before kickoff
+# WC2026 Monte Carlo — the locked pre-tournament top four were the exact four semifinalists
 
 A Monte Carlo tournament simulator that prices outright (champion) markets from
 structure rather than from the market, then tracked itself against Polymarket and Kalshi
@@ -16,7 +16,7 @@ Every number on this page is out-of-sample.
 
 ---
 
-## The problem
+## Problem
 
 Outright markets on a 48-team tournament are hard to price for a reason that is
 structural, not statistical: a team's championship probability depends on a bracket that
@@ -30,7 +30,7 @@ A model that tracks the market with a stable, understood bias is more useful tha
 that is occasionally more accurate for reasons nobody can reconstruct. Divergence from a
 known bias is a signal. Divergence from an unknown one is noise.
 
-## How it works
+## Method
 
 Team strength comes from an as-of Elo reconstruction (eloratings.net methodology),
 blended 50/50 with squad market value, plus a star-presence adjustment. Match outcomes
@@ -43,7 +43,7 @@ selection rule has a hard guard against overfitting: the best parameter set must
 the second-best by more than two standard errors, otherwise the model falls back to
 defaults rather than accepting a marginal winner.
 
-## The discipline that makes the results mean anything
+## Model locking
 
 The model is **static during a tournament**. The daily rerun re-conditions on results
 that are already locked in — it recomputes championship probabilities given what has
@@ -73,7 +73,7 @@ The model's top pick was the eventual champion, at a 2.7-point premium to Polyma
 The four teams the model ranked highest on semifinal probability were exactly the four
 teams that reached the semifinals.
 
-| Model rank | Team | Model | Polymarket (de-vigged) | Reached semifinal |
+| Model rank | Team | Model | Polymarket, de-vigged (bookmaker margin removed) | Reached semifinal |
 |---|---|---|---|---|
 | 1 | Spain | 43.92% | 40.03% | ✔ |
 | 2 | France | 39.64% | 37.33% | ✔ |
@@ -87,8 +87,8 @@ went on to reach the final.
 
 ### Knockout stage
 
-**25 of 31 ties called correctly — 80.6%.** Two-way Brier score **0.156** against a
-coin-flip baseline of 0.25.
+**25 of 31 ties called correctly — 80.6%.** Two-way Brier score — mean squared error of
+probability forecasts — **0.156**, against a coin-flip baseline of 0.25.
 
 | Round | Correct |
 |---|---|
@@ -100,7 +100,7 @@ coin-flip baseline of 0.25.
 
 ### The six misses
 
-| Round | Tie | Model favoured | Won |
+| Round | Tie | Model favored | Won |
 |---|---|---|---|
 | R32 | Germany vs Paraguay | Germany, 75.1% | Paraguay |
 | R32 | Morocco vs Netherlands | Netherlands, 63.4% | Morocco |
@@ -139,7 +139,7 @@ Python · NumPy · Poisson goal grid · Elo reconstruction · Streamlit dashboar
 
 ---
 
-## What I would do differently
+## Limitations
 
 The uniform-baseline Brier metric should never have been the headline number on the
 dashboard. It flatters the model and tells a reader almost nothing. The knockout two-way
