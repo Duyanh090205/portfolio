@@ -7,6 +7,13 @@ for all 41 days of the 2026 World Cup.
 **The model was locked on 10 June 2026, before the first match, and never re-fitted.**
 Every number on this page is out-of-sample.
 
+**[Repository](https://github.com/Duyanh090205/wc2026-monte-carlo)**
+
+<!-- VISUAL SLOT 1 — model-vs-market divergence chart over the 41 tracking days.
+     Source: data/mc_simu/closed_record/daily_log.csv (model_pct vs pm_pct vs kalshi_pct).
+     Also wanted: a screenshot of the Streamlit dashboard scorecard tab.
+     Produce locally with: streamlit run dashboard/mc_tracker.py -->
+
 ---
 
 ## The problem

@@ -10,6 +10,10 @@ atomic settlement, running behind a real-time web front end.
 > layer — 88% of the codebase by line count. Deployment configuration and the SSO
 > integration were contributed by teammates.
 
+<!-- VISUAL SLOT 2 - short clip or screenshot of the order book matching a trade.
+     This is the single highest-value visual in the whole portfolio: it shows the
+     exchange is real. Produce by running the stack locally per the repo setup. -->
+
 ---
 
 ## What it does
