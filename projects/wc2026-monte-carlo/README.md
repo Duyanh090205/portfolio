@@ -133,7 +133,7 @@ information.
 ## Engineering
 
 - 1,000,000 simulations per day, 41 consecutive days, unattended in GitHub Actions
-- **282 test functions across 29 test modules**, including wiring audits and an explicit
+- **384 tests across 29 test modules**, including wiring audits and an explicit
   no-look-ahead test on the cross-validation path
 - Daily model-vs-market divergence logged against both Polymarket and Kalshi, with
   de-vigging on the market side
