@@ -7,8 +7,9 @@ atomic settlement, running behind a real-time web front end.
 **[Repository](https://github.com/Duyanh090205/prediction-market-exchange)**
 
 > **Authorship.** I designed and built the matching engine, margin engine and settlement
-> layer — 88% of the codebase by line count. Deployment configuration and the SSO
-> integration were contributed by teammates.
+> layer — the entire trading core, and 88% of the codebase by line count. The remainder is
+> deployment configuration for the original host and its SSO bridge, contributed by
+> teammates.
 
 <!-- VISUAL SLOT 2 - short clip or screenshot of the order book matching a trade.
      This is the single highest-value visual in the whole portfolio: it shows the
