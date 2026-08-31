@@ -9,10 +9,9 @@ Every number on this page is out-of-sample.
 
 **[Repository](https://github.com/Duyanh090205/wc2026-monte-carlo)**
 
-<!-- VISUAL SLOT 1 — model-vs-market divergence chart over the 41 tracking days.
-     Source: data/mc_simu/closed_record/daily_log.csv (model_pct vs pm_pct vs kalshi_pct).
-     Also wanted: a screenshot of the Streamlit dashboard scorecard tab.
-     Produce locally with: streamlit run dashboard/mc_tracker.py -->
+![Model minus de-vigged market, semifinal-reach probability, for the model's pre-tournament top four](../../assets/wc2026-model-vs-market.png)
+
+*Model minus de-vigged Polymarket on semifinal-reach probability, across the 32 days the question was still live. The four teams are the model's own top four on 10 June, fixed before kickoff. The model ran above the market on three of them and was directionally wrong on France, which is shown rather than dropped.*
 
 ---
 
