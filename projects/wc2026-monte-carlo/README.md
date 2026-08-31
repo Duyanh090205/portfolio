@@ -80,10 +80,14 @@ teams that reached the semifinals.
 | 3 | England | 34.47% | 31.04% | ✔ |
 | 4 | Argentina | 32.01% | 27.44% | ✔ |
 
-**4 of 4** — and the model was more confident than the market on every one of them. The
-edge was directional across the whole top of the book, not one lucky team. Argentina is
-the clearest case: the model had it 4.6 points above the de-vigged market, and Argentina
-went on to reach the final.
+**4 of 4** — and on 10 June the model was above the de-vigged market on every one of
+them. The edge was directional across the whole top of the book, not one lucky team.
+Argentina is the clearest case: the model had it 4.6 points above the market, and
+Argentina went on to reach the final.
+
+Across the full campaign that lead did not hold uniformly. Averaged over the days the
+question was still live, the model ran above the market on England, Spain and Argentina
+but slightly below on France — the chart above shows the drawdown.
 
 ### Knockout stage
 
