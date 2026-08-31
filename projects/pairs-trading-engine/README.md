@@ -1,7 +1,7 @@
 # Pairs Trading Engine — a strategy I killed
 
-Three months building a statistical arbitrage pipeline end to end, and then finding that
-it does not work. **The headline result is negative.** That is the
+A statistical arbitrage pipeline built end to end between May and July 2026, and then
+found not to work. **The headline result is negative.** That is the
 project.
 
 **[Repository](https://github.com/Duyanh090205/pairs-trading-engine)**

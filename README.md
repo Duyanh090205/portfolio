@@ -14,7 +14,7 @@ researcher and trader roles.
 | [WC2026 Monte Carlo](projects/wc2026-monte-carlo/) · [code](https://github.com/Duyanh090205/wc2026-monte-carlo) | Outright pricing model, locked before the tournament and tracked daily against Polymarket and Kalshi | Top 4 by semifinal probability — **all four reached the semifinals**. 25/31 knockout ties called (80.6%) |
 | [Prediction-Market Exchange](projects/prediction-market-exchange/) | A working exchange: central limit order book, margin engine, atomic settlement | ~15.6k lines, **103 unit tests**, price–time priority matching |
 | [Natural-Gas Storage Pricing](projects/natgas-storage-pricing/) · [code](https://github.com/Duyanh090205/natgas-storage-pricing) | Harmonic regression feeding a storage-contract pricer | Beats SARIMA and seasonal-naive on every out-of-sample metric. Optimal trade is **not** the widest spread |
-| [Pairs Trading Engine](projects/pairs-trading-engine/) | Six weeks building a stat-arb pipeline, and the evidence that killed it | **Zero pairs** survived the filter funnel. Four classes of look-ahead bias measured on purpose |
+| [Pairs Trading Engine](projects/pairs-trading-engine/) | A stat-arb pipeline built May-July 2026, and the evidence that killed it | **Zero pairs** survived the filter funnel. Four classes of look-ahead bias measured on purpose |
 
 ---
 
