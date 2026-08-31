@@ -1,6 +1,6 @@
 # Pairs Trading Engine — a strategy I killed
 
-Six weeks building a statistical arbitrage pipeline end to end, and then finding that
+Three months building a statistical arbitrage pipeline end to end, and then finding that
 it does not work. **The headline result is negative.** That is the
 project.
 
