@@ -4,6 +4,11 @@ A working exchange, built from the matching engine up. Not a backtest of one, no
 simulation — a central limit order book with price–time priority, a margin engine, and
 atomic settlement, running behind a real-time web front end.
 
+To be precise about what "working" claims: it was built as the engine for a private
+trading game and has not been opened to outside users. The matching, margin and
+settlement paths are complete and tested; the system has not taken live order flow from
+the public.
+
 **[Repository](https://github.com/Duyanh090205/prediction-market-exchange)**
 
 > **Authorship.** I designed and built the matching engine, margin engine and settlement
