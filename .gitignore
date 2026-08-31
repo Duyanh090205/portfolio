@@ -3,3 +3,6 @@ PLAN.md
 
 # local editor config
 *.code-workspace
+
+# handoff notes — internal
+HANDOFF-QUESTIONS.md
