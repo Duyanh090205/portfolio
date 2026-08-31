@@ -54,5 +54,8 @@ does not see storage levels, weather or LNG flows, so it is reasonable for about
 not beyond. Seasonality is assumed stable; a structural shift would require refitting.
 
 The credit-risk extension reaches a test ROC-AUC of ≈0.9999 on the provided loan dataset.
-That is not a result to be proud of — it means the supplied data is close to trivially
-separable, which is a property of the dataset rather than of the model.
+**That number is not a result to be proud of and should not be read as one.** An AUC that
+high on real credit data would mean a leak; here it means the supplied dataset is
+synthetic and close to trivially separable. It measures a property of the data, not the
+skill of the model. The parts of that extension worth anything are the calibration curves
+and the expected-loss decomposition, not the ranking metric.

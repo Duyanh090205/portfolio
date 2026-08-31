@@ -37,11 +37,12 @@ blended 50/50 with squad market value, plus a star-presence adjustment. Match ou
 are drawn from a Poisson goal grid with a divisor of D=1400 and a 0.20 diagonal
 inflation to get the draw rate right — Poisson alone badly under-predicts draws.
 
-Parameters were selected under a **leave-one-tournament-out cross-validation** protocol
-across 12 historical tournaments (six World Cups, six Euros, ~760 matches). The
-selection rule has a hard guard against overfitting: the best parameter set must beat
-the second-best by more than two standard errors, otherwise the model falls back to
-defaults rather than accepting a marginal winner.
+Parameters were selected by **leave-one-tournament-out cross-validation** run across 12
+historical tournaments — six World Cups and six Euros, roughly 760 matches — with the
+full result tables retained in the repo audits. The selection rule carries a hard guard
+against overfitting: the winning parameter set must beat the runner-up by more than two
+standard errors, otherwise the model falls back to defaults rather than accept a marginal
+winner. Nothing was tuned on market prices at any point.
 
 ## Model locking
 
