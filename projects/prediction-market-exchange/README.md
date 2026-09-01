@@ -97,8 +97,10 @@ guarantee in the system.
 
 ## Correctness
 
-**103 unit tests across 13 files**, concentrated on matching, margin and P&L — the three
-places where a bug silently moves money instead of throwing an error.
+**103 tests across 13 files** — 67 unit tests covering matching, margin and P&L that
+run with no setup, and 36 integration tests that exercise the same paths against a live
+Postgres. The three areas covered hardest are the ones where a bug silently moves money
+instead of throwing an error.
 
 Supporting hardening: UUIDv7 idempotency keys on every state-changing operation, CSRF
 protection, per-IP login rate limiting, bcrypt at factor 12, structured logging, and an
