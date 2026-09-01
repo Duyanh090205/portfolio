@@ -6,8 +6,7 @@ atomic settlement, running behind a real-time web front end.
 
 To be precise about what "working" claims: it was built as the engine for a private
 trading game and has not been opened to outside users. The matching, margin and
-settlement paths are complete and tested; the system has not taken live order flow from
-the public.
+settlement paths are complete and tested; the system has never taken live order flow.
 
 **[Repository](https://github.com/Duyanh090205/prediction-market-exchange)**
 
