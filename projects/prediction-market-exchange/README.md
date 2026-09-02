@@ -15,9 +15,10 @@ settlement paths are complete and tested; the system has never taken live order 
 > deployment configuration for the original host and its SSO bridge, contributed by
 > teammates.
 
-<!-- VISUAL SLOT 2 - short clip or screenshot of the order book matching a trade.
-     This is the single highest-value visual in the whole portfolio: it shows the
-     exchange is real. Produce by running the stack locally per the repo setup. -->
+![The live order book, served without an account](../../assets/exchange-order-book.png)
+
+*The public read-only view at [https://prediction-market-exchange.onrender.com](https://prediction-market-exchange.onrender.com), captured from the running
+deployment. No account, no login wall — an unauthenticated visitor lands here.*
 
 ---
 
@@ -117,19 +118,32 @@ database holds settled trade history that cannot be reconstructed.
 
 ---
 
-## Deployment status
+## Deployment
 
-The original hosted deployment has been retired and its domain released. I no longer have
-access to that hosting account, so I cannot guarantee the service stays up, and a link
-that intermittently fails is worse than no link at all.
+**Live at [https://prediction-market-exchange.onrender.com](https://prediction-market-exchange.onrender.com).** Render for the app,
+Neon for Postgres, both on free tiers. An unauthenticated visitor gets the
+read-only book; `demo@example.com` / `demo-trader-2027` signs in to trade.
 
-There is also a real bug in the retired deployment worth naming, because diagnosing it is
-more interesting than hiding it: the login flow built its return URL from the **runtime
-bind address** rather than from a configured public URL. In production that resolved to
-`0.0.0.0:3000`, so even a successful login redirected the user to a host that does not
-exist. The fix is a public-URL environment variable. The lesson is that anything deriving
-a user-visible URL from the socket it happens to be listening on will work perfectly in
-local development and fail only in production.
+The first deployment is gone — its host was retired and the domain released — and
+the bug that killed it is worth naming, because diagnosing it is more interesting
+than hiding it. The login flow built its return URL from the **runtime bind
+address** rather than from a configured public URL. In production that resolved
+to `0.0.0.0:3000`, so even a successful login redirected the user to a host that
+does not exist. The fix is a public-URL environment variable, pinned in
+`render.yaml`.
 
-Until a redeployment on infrastructure I control, the repository and its test suite are
-the artifact, and the setup instructions in the repo bring the full stack up locally.
+Standing this back up on new infrastructure turned up two more failures that only
+appear on a clean machine:
+
+- `NODE_ENV=production` makes `npm ci` skip devDependencies, and every build tool
+  here — the PostCSS plugin, TypeScript, Tailwind — is a devDependency. The build
+  installed 12 runtime packages and then failed resolving a PostCSS plugin.
+- The login page hung on its loading state. Middleware issues a per-request CSP
+  nonce, but the page was prerendered at build time, so its script tags shipped
+  without one; `'strict-dynamic'` then blocks every unnonced script and hydration
+  never starts. Route segment config is ignored inside a `"use client"` file, so
+  the fix was to split each auth page into a server wrapper carrying
+  `force-dynamic` around the client component.
+
+Both were invisible locally, where `node_modules` was already complete and pages
+were already dynamic in dev.
