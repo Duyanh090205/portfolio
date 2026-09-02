@@ -6,3 +6,8 @@ PLAN.md
 
 # handoff notes — internal
 HANDOFF-QUESTIONS.md
+
+# credentials - never commit
+connection-details.md
+*.secrets.md
+.env*
