@@ -8,7 +8,10 @@ To be precise about what "working" claims: it was built as the engine for a priv
 trading game, and the deployment linked below is a demo. The matching, margin and
 settlement paths are complete and tested; the system has never taken live order flow.
 
-**[Repository](https://github.com/Duyanh090205/prediction-market-exchange)**
+**[Repository](https://github.com/Duyanh090205/prediction-market-exchange)** · **[Live demo](https://prediction-market-exchange.onrender.com)**
+
+Guest: read-only market-data feed · Enter as demo trader: a sandbox with play money,
+expires in 24 h.
 
 > **Authorship.** I designed and built the matching engine, margin engine and settlement
 > layer — the entire trading core, and 88% of the codebase by line count. The remainder is
