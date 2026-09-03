@@ -14,8 +14,10 @@ Guest: read-only market-data feed · Enter as demo trader: a sandbox with play m
 expires in 24 h.
 
 > **Authorship.** I designed and built the matching engine, margin engine and settlement
-> layer — the entire trading core, and 88% of the codebase by line count. The remainder is
-> deployment configuration for the original host and its SSO bridge, contributed by
+> layer — the entire trading core — and every test. By `git blame` over the source tree
+> as of September 2026 (lockfile and documentation excluded), 90% of the lines are mine;
+> the remaining ~1,750 are account and admin plumbing — registration, password reset,
+> admin user management, the login page and parts of the session wiring — contributed by
 > teammates.
 
 ![The live order book, served without an account](../../assets/exchange-order-book.png)
