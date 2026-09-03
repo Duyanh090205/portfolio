@@ -114,7 +114,7 @@ API-layer rule blocking the administrator from trading at all.
 
 ## Stack
 
-Roughly 15.6k lines. Next.js 15 (App Router), PostgreSQL, Prisma, Socket.IO over a custom
+Roughly 21.6k lines. Next.js 15 (App Router), PostgreSQL, Prisma, Socket.IO over a custom
 Node server for real-time book and trade updates, Tailwind.
 
 Eleven database tables. Migrations are additive-only by policy — no `DROP TABLE` or
