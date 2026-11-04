@@ -2,16 +2,17 @@
 
 A Monte Carlo tournament simulator that prices outright (champion) markets from
 structure rather than from the market, then tracked itself against Polymarket and Kalshi
-for all 41 days of the 2026 World Cup.
+for all 39 days of the 2026 World Cup.
 
 **The model was locked on 10 June 2026, before the first match, and never re-fitted.**
-Every number on this page is out-of-sample.
+No match result ever reached the model's parameters: every forecast here uses only the
+locked model and results known before the match it predicts.
 
 **[Repository](https://github.com/Duyanh090205/wc2026-monte-carlo)**
 
 ![Model minus de-vigged market, semifinal-reach probability, for the model's pre-tournament top four](../../assets/wc2026-model-vs-market.png)
 
-*Model minus de-vigged Polymarket on semifinal-reach probability, across the 32 days the question was still live. The four teams are the model's own top four on 10 June, fixed before kickoff. The model ran above the market on three of them and was directionally wrong on France, which is shown rather than dropped.*
+*Model minus de-vigged Polymarket on semifinal-reach probability, across the 32 days the question was still live. The four teams are the model's own top four on 10 June, fixed before kickoff. Semifinal-reach tracking was added on 2 July and rebuilt back to 10 June from the locked model and Polymarket's price history. The model ran above the market on three of them and was directionally wrong on France, which is shown rather than dropped.*
 
 ---
 
@@ -32,16 +33,18 @@ known bias is a signal. Divergence from an unknown one is noise.
 ## Method
 
 Team strength comes from an as-of Elo reconstruction (eloratings.net methodology),
-blended 50/50 with squad market value, plus a star-presence adjustment. Match outcomes
+blended 50/50 with squad market value, plus a star-presence adjustment. The blend weight
+and the star adjustment were set before the tournament by matching pre-tournament
+Polymarket champion prices; that is the one place market prices entered. Match outcomes
 are drawn from a Poisson goal grid with a divisor of D=1400 and a 0.20 diagonal
 inflation to get the draw rate right — Poisson alone badly under-predicts draws.
 
-Parameters were selected by **leave-one-tournament-out cross-validation** run across 12
-historical tournaments — six World Cups and six Euros, roughly 760 matches — with the
-full result tables retained in the repo audits. The selection rule carries a hard guard
-against overfitting: the winning parameter set must beat the runner-up by more than two
-standard errors, otherwise the model falls back to defaults rather than accept a marginal
-winner. Nothing was tuned on market prices at any point.
+The goal-model parameters (D=1400, diagonal 0.20) were chosen on 230 matches from four
+past tournaments, then checked by **leave-one-tournament-out cross-validation** over 11
+tournaments — six World Cups and five Euros, 579 matches. Re-tuned fold by fold, the
+cross-validation would have picked D=1300 in 9 of 11 folds, but the re-tuned values scored
+no better out of sample (Brier 0.1930 against 0.1928 for the fixed pair), so the original
+pair stayed.
 
 ## Model locking
 
@@ -50,8 +53,10 @@ that are already locked in — it recomputes championship probabilities given wh
 happened — but it never re-fits parameters on in-tournament data. Without that rule,
 none of the numbers below would be evidence of anything.
 
-The full run is 1,000,000 simulations per day, executed unattended in CI for 41
-consecutive days.
+From 11 June the full run was 1,000,000 simulations a day, unattended in GitHub Actions,
+to the end of the tournament. The 10 June launch snapshot was a local 50,000-path run.
+One day (29 June) failed silently — the step passed because the output was piped through
+`tee` without `pipefail` — and was rebuilt from that morning's results after the tournament.
 
 ---
 
@@ -61,12 +66,13 @@ consecutive days.
 
 | | Model | Polymarket | Kalshi | Outcome |
 |---|---|---|---|---|
-| Spain | **19.11%** | 16.45% | 17.35% | **won** |
+| Spain | **19.11%** | 16.45% | 17.35% | champion |
 | France | 15.36% | 16.05% | 16.05% | lost in semifinal |
 | England | 11.89% | 10.85% | 10.75% | lost in semifinal |
 | Argentina | 10.39% | 8.55% | 8.65% | lost in final |
 
-The model's top pick was the eventual champion, at a 2.7-point premium to Polymarket.
+One tournament has one champion, so this table is not evidence on its own; the
+semifinal, knockout and group-stage records below carry more.
 
 ### Semifinal reach — the strongest result
 
@@ -80,10 +86,11 @@ teams that reached the semifinals.
 | 3 | England | 34.47% | 31.04% | ✔ |
 | 4 | Argentina | 32.01% | 27.44% | ✔ |
 
-**4 of 4** — and on 10 June the model was above the de-vigged market on every one of
-them. The edge was directional across the whole top of the book, not one lucky team.
-Argentina is the clearest case: the model had it 4.6 points above the market, and
-Argentina went on to reach the final.
+**4 of 4.** On 10 June the model was also above the de-vigged market on all four, but
+that comparison depends on the de-vig. The repo scales each round's quotes so they sum
+to the number of slots (four for the semifinals). Against raw quotes the model was below
+the market on Spain and France; with a power de-vig it stays above on all four, France
+by only 0.3 points, about one Monte Carlo standard error at 50,000 paths.
 
 Across the full campaign that lead did not hold uniformly. Averaged over the days the
 question was still live, the model ran above the market on England, Spain and Argentina
@@ -132,7 +139,8 @@ information.
 
 ## Engineering
 
-- 1,000,000 simulations per day, 41 consecutive days, unattended in GitHub Actions
+- 1,000,000 simulations a day in GitHub Actions from 11 June to the final; one silent
+  failure (29 June), rebuilt after the tournament
 - **384 tests across 29 test modules**, including wiring audits and an explicit
   no-look-ahead test on the cross-validation path
 - Daily model-vs-market divergence logged against both Polymarket and Kalshi, with
